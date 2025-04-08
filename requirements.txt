@@ -1,0 +1,15 @@
+streamlit
+tensorflow
+Pillow
+os
+shutil
+numpy 
+pandas
+tensorflow
+keras
+zipfile
+random
+cv2
+pickle
+seaborn
+scikit-learn
