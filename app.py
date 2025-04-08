@@ -11,7 +11,7 @@ st.write("Sube una imagen de resonancia magnética para predecir si tiene tumor 
 # Cargar el modelo
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("/content/modelo_tumores.h5")
+    model = tf.keras.models.load_model("modelo_tumores.h5")
     return model
 
 model = load_model()
