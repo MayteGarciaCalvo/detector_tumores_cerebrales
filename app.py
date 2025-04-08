@@ -43,7 +43,7 @@ uploaded_file = st.file_uploader("📤 Sube una imagen de resonancia cerebral (J
 if uploaded_file is not None:
     # Abrimos la imagen
     image = Image.open(uploaded_file)
-    st.image(image, caption="Imagen cargada", use_column_width=True)
+    st.image(image, caption="Imagen cargada", use_container_width=True)
 
     # Verificar si la imagen parece una resonancia magnética
     if not is_mri(image):
