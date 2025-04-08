@@ -11,7 +11,7 @@ st.write("Sube una imagen de resonancia magnética para predecir si tiene tumor 
 # Cargar el modelo
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("modelo_tumores.h5")
+    model = tf.keras.models.load_model("/content/modelo_tumores.h5")
     return model
 
 model = load_model()
@@ -26,15 +26,16 @@ def preprocess_image(image):
 
 # Verificar si la imagen es una resonancia magnética
 def is_mri(image):
-    # Este es un ejemplo simple, puedes mejorarlo con análisis de metadatos o técnicas de IA
-    try:
-        # Verificamos el tamaño y formato de la imagen (puedes mejorar este filtro)
-        if image.size[0] < 100 or image.size[1] < 100:
-            return False  # Si la imagen es demasiado pequeña, probablemente no sea una resonancia
-        return True
-    except Exception as e:
-        st.error(f"⚠️ Error al procesar la imagen: {e}")
-        return False
+    # Comprobar si la imagen tiene un tamaño razonable (resolución mínima de una resonancia)
+    min_resolution = 100  # Resolución mínima, ajustable según el caso
+    if image.size[0] < min_resolution or image.size[1] < min_resolution:
+        return False  # Si la imagen es demasiado pequeña, no es una resonancia válida
+    
+    # Comprobar el formato de la imagen (JPEG/PNG)
+    if image.format not in ['JPEG', 'PNG']:
+        return False  # Filtra imágenes no adecuadas como monedas u otros objetos
+
+    return True
 
 # Subir imagen
 uploaded_file = st.file_uploader("📤 Sube una imagen de resonancia cerebral (JPG o PNG)", type=["jpg", "jpeg", "png"])
@@ -42,7 +43,7 @@ uploaded_file = st.file_uploader("📤 Sube una imagen de resonancia cerebral (J
 if uploaded_file is not None:
     # Abrimos la imagen
     image = Image.open(uploaded_file)
-    st.image(image, caption="Imagen cargada", use_container_width=True)
+    st.image(image, caption="Imagen cargada", use_column_width=True)
 
     # Verificar si la imagen parece una resonancia magnética
     if not is_mri(image):
@@ -70,3 +71,4 @@ if uploaded_file is not None:
                 ### ¿Qué significa esto?
                 No se ha detectado un tumor, pero siempre es mejor consultar con un especialista para confirmar el diagnóstico.
                 """)
+
