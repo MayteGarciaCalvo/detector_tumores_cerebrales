@@ -33,7 +33,7 @@ uploaded_file = st.file_uploader("📤 Sube una imagen (JPG o PNG)", type=["jpg"
 if uploaded_file is not None:
     # Mostrar imagen cargada
     image = Image.open(uploaded_file)
-    st.image(image, caption="🖼️ Imagen cargada", use_column_width=True)
+    st.image(image, caption="🖼️ Imagen cargada", use_container_width=True)
 
     # Botón para analizar
     if st.button("🔍 Analizar"):
