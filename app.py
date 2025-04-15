@@ -25,7 +25,7 @@ def preprocess_image(image):
     return img_array
 
 # Diccionario de clases
-class_names = ["No_escaner", "no_tumor", "tumor"]
+class_names = ["No_escaner", "tumor", "no_tumor"]  # Invertimos "tumor" y "no_tumor" según lo mencionado
 
 # Subir imagen
 uploaded_file = st.file_uploader("📤 Sube una imagen (JPG o PNG)", type=["jpg", "jpeg", "png"])
@@ -33,7 +33,7 @@ uploaded_file = st.file_uploader("📤 Sube una imagen (JPG o PNG)", type=["jpg"
 if uploaded_file is not None:
     # Mostrar imagen cargada
     image = Image.open(uploaded_file)
-    st.image(image, caption="🖼️ Imagen cargada",  use_container_width=True)
+    st.image(image, caption="🖼️ Imagen cargada", use_column_width=True)
 
     # Botón para analizar
     if st.button("🔍 Analizar"):
