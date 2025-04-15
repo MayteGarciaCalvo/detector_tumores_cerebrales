@@ -50,7 +50,7 @@ if uploaded_file is not None:
             st.markdown("### ¿Qué significa esto?\nLa imagen subida **no parece ser una resonancia magnética cerebral**. Asegúrate de subir una imagen válida del cerebro.")
         elif predicted_class == 1:
             st.success(f"✅ No hay tumor (probabilidad: {probability:.2f})")
-            st.markdown("### ¿Qué significa esto?\nEl modelo ha detectado la **presencia de un tumor** en la imagen. Por favor, contacta con un especialista para una evaluación profesional.")
+            st.markdown("### ¿Qué significa esto?\nNo se ha detectado un tumor en la imagen. Aun así, se recomienda consultar con un médico para confirmar.")
         else:
             st.warning(f"🚨 Se detecta tumor (probabilidad: {probability:.2f})")
-            st.markdown("### ¿Qué significa esto?\nNo se ha detectado un tumor en la imagen. Aun así, se recomienda consultar con un médico para confirmar.")
+            st.markdown("### ¿Qué significa esto?\nEl modelo ha detectado la **presencia de un tumor** en la imagen. Por favor, contacta con un especialista para una evaluación profesional.")
