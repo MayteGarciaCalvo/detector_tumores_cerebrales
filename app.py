@@ -1,4 +1,4 @@
-%%writefile app.py
+
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -11,7 +11,7 @@ st.write("Sube una imagen de resonancia magnética para predecir si tiene tumor,
 # Cargar el modelo
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("modelo_tumores.h5")
+    model = tf.keras.models.load_model("modelo_tumores_actualizado1.h5")
     return model
 
 model = load_model()
@@ -33,7 +33,7 @@ uploaded_file = st.file_uploader("📤 Sube una imagen (JPG o PNG)", type=["jpg"
 if uploaded_file is not None:
     # Mostrar imagen cargada
     image = Image.open(uploaded_file)
-    st.image(image, caption="🖼️ Imagen cargada", use_column_width=True)
+    st.image(image, caption="🖼️ Imagen cargada", use_container_width =True)
 
     # Botón para analizar
     if st.button("🔍 Analizar"):
@@ -45,11 +45,11 @@ if uploaded_file is not None:
         st.subheader("📊 Resultado del análisis:")
         
         if predicted_class == 0:
-            st.error(f"🚨 Tumor detectado (probabilidad: {probability:.2f})")
-            st.markdown("### ¿Qué significa esto?\nEl modelo ha detectado la **presencia de un tumor** en la imagen. Por favor, contacta con un especialista para una evaluación profesional.")
-        elif predicted_class == 1:
-            st.success(f"✅ No se detecta tumor (probabilidad: {probability:.2f})")
-            st.markdown("### ¿Qué significa esto?\nNo se ha detectado un tumor en la imagen. Aun así, se recomienda consultar con un médico para confirmar.")
-        else:
-            st.warning(f"⚠️ Imagen no válida como resonancia (probabilidad: {probability:.2f})")
+            st.error(f"⚠️ Imagen no válida como resonancia (probabilidad: {probability:.2f})")
             st.markdown("### ¿Qué significa esto?\nLa imagen subida **no parece ser una resonancia magnética cerebral**. Asegúrate de subir una imagen válida del cerebro.")
+        elif predicted_class == 1:
+            st.success(f"🚨 Tumor detectado (probabilidad: {probability:.2f})")
+            st.markdown("### ¿Qué significa esto?\nEl modelo ha detectado la **presencia de un tumor** en la imagen. Por favor, contacta con un especialista para una evaluación profesional.")
+        else:
+            st.warning(f"✅ No se detecta tumor (probabilidad: {probability:.2f})")
+            st.markdown("### ¿Qué significa esto?\nNo se ha detectado un tumor en la imagen. Aun así, se recomienda consultar con un médico para confirmar.")
